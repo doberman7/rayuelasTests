@@ -24,13 +24,17 @@ $(document).ready(function(){
     $next_player.addClass("active")
   }
 
-  //recursividad
+  var p1 = "#Player1"
   do {
-    lanzar_dado("#Player1");
+    lanzar_dado(p1);
     //lanzar dado hasta que <tr id="Player1"> se igual al index de la clase active. se agregan el 2 ya que las 2 primeros "td"'s tienen las  palabras"Jugador 1" y "ACTIVE" respectivamente
-  } while ("#Player1".length + 2 >= $("#Player1").find(".active").index() );
+  } while (p1.length + 2 >= $(p1).find(".active").index() );
 
-
+  var p2 = "#Player2"
+  do {
+    lanzar_dado(p2);
+    //lanzar dado hasta que <tr id="Player1"> se igual al index de la clase active. se agregan el 2 ya que las 2 primeros "td"'s tienen las  palabras"Jugador 1" y "ACTIVE" respectivamente
+  } while (p2.length + 2 >= $(p2).find(".active").index() );
 
 });
 
