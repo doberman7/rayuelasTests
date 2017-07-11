@@ -4,22 +4,43 @@ $(document).ready(function(){
     // iterar en filas, k es el index de iteracion, tableRow es el value de cada iteracin
     $.each($tableRows,function(k,tableRow){
       //AGREGAR CASILLAS: td es el tableData, iniciando en 1, mientras sea menor o igual a 20, aumentar 1
-      for (var tdN = 1; tdN <= 20; tdN++) {
+      for (var tdN = 1; tdN <= 10; tdN++) {
         //anexar en cada fila un "td" con id="tdN"
-        $(tableRow).append("<td id="+tdN+">fila: "+k+" casilla: "+tdN+"</td>");
+        $(tableRow).append("<td id="+tdN+">fila: "+k+" id: "+tdN+"</td>");
         //MOVER CLASE ACTIVE:
         //en 950 milisegs, en la fila encontrar hijo con lcase "active" y al siguiente elemento y añadir la clase "active"
-        setTimeout(function(){
-          $(tableRow).find(".active").next().addClass("active");
-        }, 950);
-        //en 1500 milisegs, en la fila encontrar el primer hijo con classe "active" y remover clase "active"
-        setTimeout(function(){
-          $(tableRow).find(".active").first().removeClass("active");
-        }, 1500);
       };
     });
 
+	//crear funcion que recibe un jugador
+  function lanzar_dado(player) {
+    //-asignar variable que obtiene objeto con la clase active = CURRENT
+    var $current_player = $(player).find(".active");
+    //-asignar variable que obtiene el siguiente objeto a la clase active = NEXT
+    var $next_player = $current_player.next();
+    //-remover la clase "active" de CURRENT
+    $current_player.removeClass("active");
+    //-agregar clase "active" a NEXT
+    $next_player.addClass("active")
+  }
+
+  //recursividad
+  do {
+    lanzar_dado("#Player1");
+    //lanzar dado hasta que <tr id="Player1"> se igual al index de la clase active. se agregan el 2 ya que las 2 primeros "td"'s tienen las  palabras"Jugador 1" y "ACTIVE" respectivamente
+  } while ("#Player1".length + 2 >= $("#Player1").find(".active").index() );
 
 
 
 });
+
+
+/*
+
+
+
+
+
+
+  -establecer SetTimeout
+*/
