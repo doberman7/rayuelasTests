@@ -9,15 +9,15 @@ $(document).ready(function(){
   teclaS = false;
   teclaÑ = false;
 
-  tp1 = 0
-  tp2 = 0
+  jugador1Tirado = false
+  jugador2Tirado = false
     // iterar en filas, k es el index de iteracion, tableRow es el value de cada iteracin
     $.each($tableRows,function(k,tableRow){
       //AGREGAR CASILLAS: td es el tableData, iniciando en 1, mientras sea menor o igual a 20, aumentar 1
       for (var tdN = 1; tdN <= lengtH; tdN++) {
         //anexar en cada fila un "td" con id="tdN"
-        //$(tableRow).append("<td id="+tdN+"></td>");
-        $(tableRow).append("<td id="+tdN+">fila: "+k+" id: "+tdN+"</td>");//
+        $(tableRow).append("<td id="+tdN+"></td>");
+        //$(tableRow).append("<td id="+tdN+">fila: "+k+" id: "+tdN+"</td>");//
         //si el id del td creado es al lengtH -1, quiere decir que es el penultimo, entonces....
         if (tdN==lengtH - 1) {
           //agregar al td de cada jugador un fondo color blanco, este serà la meta
@@ -39,6 +39,7 @@ $(document).ready(function(){
   $(window).bind(keyStop());
 
 
+
 });//------------------FIN DOCUMENT READY
 
 //FUNCION PARA DETERMINAR GANADOR
@@ -50,9 +51,11 @@ function winerIs(tp1,tp2){
   // si el p2 tiene un valor menor a p1 y mayor a -1 es el GANADOR
   if (p1Point > p2Point && p2Point > -1 ) {
       console.log("gana P2");
+      console.log(p1Point + " " +p2Point);
     // si el p1 tiene un valor menor a p2 y mayor a -1 es el GANADOR
   } else if (p1Point < p2Point && p1Point > -1) {
     console.log("P1 gana");
+    console.log(p1Point+" "+ p2Point);
     //si ambos comparten el mismo valor y son mayores a -1 es EMPATE
   } else if (p1Point == p2Point && p2Point > -1 && p1Point > -1) {
     console.log("empate");
@@ -90,24 +93,28 @@ function lanzarDado(player, lengtH) {
       //console.log("Player1 terminado");
       //asignar el id de la ultima casilla con la clase active de P1
       tp1 = $("#Player1").find(".active").attr("id");
-
+      jugador1Tirado = true
     }else if (player == "#Player2" && teclaÑ == true){
       //console.log("Player2 terminado");
 
       //asignar el id de la ultima casilla con la clase active de P2
       tp2 = $("#Player2").find(".active").attr("id");
+      jugador2Tirado = true
 
     //si el largo del <tr id="Player1">  es mayor o igual la indice del <td class="active">
     }else if (lengtH -1 >= $($current_player).index()){
         //establecer tiempo de ejecucion de lanzar el dado
-        //console.log("recursion");
         setTimeout(function() {
           lanzarDado(player, lengtH);
-        },200);
+        },100);
     };
 
-  //DETERMINAR GANADOR
-  winerIs(tp1,tp2);
+  if (jugador1Tirado == true && jugador2Tirado == true) {
+    //DETERMINAR GANADOR
+    winerIs(tp1,tp2);
+    jugador1Tirado = false;
+    jugador1Tirado = false;
+  };
 };//----------FIN LANZAR DADO
 
 //function para iniciar juego por cada jugador
@@ -116,7 +123,6 @@ function throwDices() {
   $("#start_btn").click(function () {
     lanzarDado("#Player1",lengtH);
     lanzarDado("#Player2", lengtH);
-
   });
 };//----------FIN LANZAR AMABOS DADOS
 

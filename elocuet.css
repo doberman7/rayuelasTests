@@ -1,10 +1,14 @@
+
+
 .table td {
+
   background-color: forestgreen;
   height: 20px;
   width: 20px;
-  border-top: solid black;
+  /*border-top: solid black;
   border-bottom: solid black;
-  width: 100px;
+  border-left: solid forestgreen;
+  border-right: solid forestgreen;*/
 }
 
 .table td.active {
