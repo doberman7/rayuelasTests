@@ -50,18 +50,20 @@ function winerIs(tp1,tp2){
 
   // si el p2 tiene un valor menor a p1 y mayor a -1 es el GANADOR
   if (p1Point > p2Point && p2Point > -1 ) {
-      console.log("gana P2");
-      console.log(p1Point + " " +p2Point);
+      console.log("P2 GANA");
+      //console.log("P1" + p1Point + "P2" + p2Point+ "");
     // si el p1 tiene un valor menor a p2 y mayor a -1 es el GANADOR
   } else if (p1Point < p2Point && p1Point > -1) {
-    console.log("P1 gana");
-    console.log(p1Point+" "+ p2Point);
+    console.log("P1 GANA");
+    //console.log("P1" + p1Point + "P2" + p2Point+ "");
     //si ambos comparten el mismo valor y son mayores a -1 es EMPATE
   } else if (p1Point == p2Point && p2Point > -1 && p1Point > -1) {
-    console.log("empate");
+    console.log("P1" + p1Point + "P2" + p2Point+ "");
+    //console.log("EMPATE");
     //si ambos son menores a -1 AMBOS PIERDEN
   } else if ( p2Point <= -1 && p1Point <= -1) {
-    console.log("ambos pierden");
+    console.log("AMBOS PIERDEN");
+    //console.log("P1" + p1Point + "P2" + p2Point+ "");
   };
 };
 
@@ -106,7 +108,7 @@ function lanzarDado(player, lengtH) {
         //establecer tiempo de ejecucion de lanzar el dado
         setTimeout(function() {
           lanzarDado(player, lengtH);
-        },100);
+        },30);
     };
 
   if (jugador1Tirado == true && jugador2Tirado == true) {
@@ -115,6 +117,16 @@ function lanzarDado(player, lengtH) {
     jugador1Tirado = false;
     jugador1Tirado = false;
   };
+
+
+  //SI la clase active alcanza el final de las casillas
+  if ($current_player.attr("id") == lengtH -1) {
+    //asignar puntaje de jugadores a la longitud
+    tp1 = lengtH;
+    tp2 = lengtH;
+    // de tal manera que al determinar el GANADOR los puntajes de 0, y ambos sean catalogados como perdedores
+    winerIs(tp1,tp2);
+  }
 };//----------FIN LANZAR DADO
 
 //function para iniciar juego por cada jugador
